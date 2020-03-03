@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from 'redux';
+import { v4 } from 'uuid';
 
 import { loadState, saveState } from './localStorage';
 
@@ -6,8 +7,8 @@ const defaultState = {
   timer: {
     isStarted: false,
     startTime: 0,
+    tasks: [],
   },
-  tasks: [],
 };
 
 const initialState = loadState() || defaultState;
@@ -16,6 +17,7 @@ const timer = (state = initialState.timer, action) => {
   switch (action.type) {
     case 'START': {
       return {
+        ...state,
         isStarted: true,
         startTime: Date.now(),
       };
@@ -25,6 +27,15 @@ const timer = (state = initialState.timer, action) => {
       return {
         isStarted: false,
         startTime: 0,
+        tasks: [
+          ...state.tasks,
+          {
+            id: v4(),
+            title: action.title,
+            startTime: state.startTime,
+            endTime: Date.now(),
+          },
+        ],
       };
     }
 
@@ -33,14 +44,7 @@ const timer = (state = initialState.timer, action) => {
   }
 };
 
-const tasks = (state = initialState.tasks, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
-
-const rootReducer = combineReducers({ timer, tasks });
+const rootReducer = combineReducers({ timer });
 
 const store = createStore(
   rootReducer,

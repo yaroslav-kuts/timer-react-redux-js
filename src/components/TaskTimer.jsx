@@ -48,6 +48,7 @@ class TaskTimer extends React.Component {
     }
   }
 
+  // TODO: replace it
   componentWillUnmount = () => {
     clearInterval(this.interval);
   }
