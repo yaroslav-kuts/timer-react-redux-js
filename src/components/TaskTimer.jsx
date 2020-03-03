@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { start, stop } from './../redux/actionCreators';
+import { start, stop } from '../redux/actionCreators';
 
-import { getDiffInSeconds, formatTime } from './../utils';
+import { getDiffInSeconds, formatTime } from '../utils';
 
-class TimerApp extends React.Component {
+class TaskTimer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -61,21 +61,21 @@ class TimerApp extends React.Component {
     const { input, counter } = this.state;
 
     return (
-        <div className="timer" >
-            <TextField
-              id="standard-basic"
-              label="Your Task"
-              onChange={this.handleInput}
-              value={input}
-            />
-            <div className="clock" >{formatTime(counter)}</div>
+      <div className="timer" >
+        <TextField
+          id="standard-basic"
+          label="Your Task"
+          onChange={this.handleInput}
+          value={input}
+        />
+        <div className="clock" >{formatTime(counter)}</div>
 
-            { isStarted ? stopButton : startButton}
-        </div>
+        { isStarted ? stopButton : startButton}
+      </div>
     );
   }
 }
 
 const mapStateToProps = ({ timer: { isStarted, startTime } }) => ({ isStarted, startTime });
 
-export default connect(mapStateToProps, { start, stop })(TimerApp);
+export default connect(mapStateToProps, { start, stop })(TaskTimer);

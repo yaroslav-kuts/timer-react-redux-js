@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Timer from './components/Timer';
+import TaskTimer from './components/TaskTimer';
 
 const App = () => (
   <div className="App">
-    <Timer />
+    <TaskTimer />
   </div>
 );
 
