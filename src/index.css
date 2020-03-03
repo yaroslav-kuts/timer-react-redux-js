@@ -1,23 +1,27 @@
 .timer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .clock {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    /* border: 2px solid black; */
-    margin: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
-  }
+.clock {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  /* border: 2px solid black; */
+  margin: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+}
 
-  label {
-    margin-left: 13px;
-    margin-right: 13px;
-  }
+label {
+  margin-left: 13px;
+  margin-right: 13px;
+}
+
+.MuiPaper-root {
+  margin-top: 45px;
+}

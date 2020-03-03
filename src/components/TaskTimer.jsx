@@ -66,9 +66,7 @@ class TaskTimer extends React.Component {
   }
 
   render() {
-    console.log('render');
     const startButton = <Button variant="contained" onClick={this.handleStart}>START</Button>
-
     const stopButton = <Button variant="contained" onClick={this.handleStop}>STOP</Button>
 
     const { isStarted } = this.props;
