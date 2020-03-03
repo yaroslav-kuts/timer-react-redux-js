@@ -10,9 +10,13 @@ class TimerApp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { input: '', counter: 0 };
+    const { isStarted, startTime } = this.props;
 
-    this.timer = null;
+    const counter = isStarted ? Math.floor((Date.now() - startTime) / 1000) : 0;
+
+    this.state = { input: '', counter };
+
+    this.interval = null;
   }
 
   handleInput = event => {
@@ -21,15 +25,29 @@ class TimerApp extends React.Component {
 
   handleStart = () => {
     this.props.start();
-    this.timer = setInterval(() => {
+    this.interval = setInterval(() => {
       this.setState(({ input, counter }) => ({ input, counter: counter + 1 }))
     }, 1000)
-  }
+  };
 
   handleStop = () => {
     this.props.stop(this.state.input);
     this.setState({ input: '', counter: 0 });
-    clearInterval(this.timer);
+    clearInterval(this.interval);
+  }
+
+  componentDidMount = () => {
+    const { isStarted, startTime } = this.props;
+    if (isStarted) {
+      this.interval = setInterval(() => {
+        const counter = Math.floor((Date.now() - startTime) / 1000);
+        this.setState(({ input }) => ({ input, counter }))
+      }, 1000)
+    }
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.interval);
   }
 
   render() {
@@ -37,16 +55,16 @@ class TimerApp extends React.Component {
 
     const stopButton = <Button variant="contained" onClick={this.handleStop}>STOP</Button>
 
-    const { isStarted, startTime } = this.props;
+    const { isStarted } = this.props;
     const { input, counter } = this.state;
 
     return (
         <div className="timer" >
             <TextField
-            id="standard-basic"
-            label="Your Task"
-            onChange={this.handleInput}
-            value={input}
+              id="standard-basic"
+              label="Your Task"
+              onChange={this.handleInput}
+              value={input}
             />
             <div className="clock" >{counter}</div>
 
@@ -56,6 +74,6 @@ class TimerApp extends React.Component {
   }
 }
 
-const mapStateToProps = ({ timer: { isStarted, counter } }) => ({ isStarted, counter });
+const mapStateToProps = ({ timer: { isStarted, startTime } }) => ({ isStarted, startTime });
 
 export default connect(mapStateToProps, { start, stop })(TimerApp);

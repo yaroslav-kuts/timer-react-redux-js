@@ -1,23 +1,29 @@
 import { createStore, combineReducers } from "redux";
 
+import { loadState, saveState } from './localStorage';
+
 const defaultState = {
-    isStarted: false,
-    counter: 0,
+    timer: {
+      isStarted: false,
+      startTime: 0,
+    },
+    tasks: [],
 };
 
-const timer = (state = defaultState, action) => {
+const initialState = loadState() || defaultState;
+
+const timer = (state = initialState.timer, action) => {
     switch (action.type) {
+
         case 'START': {
             return {
-                ...state,
                 isStarted: true,
-                startTime: Date.now()
+                startTime: Date.now(),
             }
         }
 
         case 'STOP': {
             return {
-                ...state,
                 isStarted: false,
                 startTime: 0,
             };
@@ -28,6 +34,17 @@ const timer = (state = defaultState, action) => {
     }
 }
 
-const rootReducer = combineReducers({ timer });
+const tasks = (state = initialState.tasks, action) => {
+    switch (action.type) {
+        default:
+            return state;
+    }
+}
 
-export default createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const rootReducer = combineReducers({ timer, tasks });
+
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+store.subscribe(() => saveState(store.getState()));
+
+export default store;
