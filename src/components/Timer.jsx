@@ -6,13 +6,15 @@ import Button from '@material-ui/core/Button';
 
 import { start, stop } from './../redux/actionCreators';
 
+import { getDiffInSeconds, formatTime } from './../utils';
+
 class TimerApp extends React.Component {
   constructor(props) {
     super(props);
 
     const { isStarted, startTime } = this.props;
 
-    const counter = isStarted ? Math.floor((Date.now() - startTime) / 1000) : 0;
+    const counter = isStarted ? getDiffInSeconds(startTime) : 0;
 
     this.state = { input: '', counter };
 
@@ -66,7 +68,7 @@ class TimerApp extends React.Component {
               onChange={this.handleInput}
               value={input}
             />
-            <div className="clock" >{counter}</div>
+            <div className="clock" >{formatTime(counter)}</div>
 
             { isStarted ? stopButton : startButton}
         </div>
