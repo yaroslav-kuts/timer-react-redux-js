@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import Alert from './Alert';
+
 import { start, stop } from '../redux/actionCreators';
 
 import { getDiffInSeconds, formatTime } from '../utils';
@@ -16,7 +18,7 @@ class TaskTimer extends React.Component {
 
     const counter = isStarted ? getDiffInSeconds(startTime) : 0;
 
-    this.state = { input: '', counter };
+    this.state = { input: '', counter, error: null };
 
     this.interval = null;
   }
@@ -24,6 +26,8 @@ class TaskTimer extends React.Component {
   handleInput = event => {
     this.setState({ input: event.target.value });
   }
+
+  handleError = () => this.setState(prev => ({ ...prev, error: null }));
 
   handleStart = () => {
     this.props.start();
@@ -33,8 +37,16 @@ class TaskTimer extends React.Component {
   };
 
   handleStop = () => {
-    this.props.stop(this.state.input);
+    const { input } = this.state;
+    if (!input) return this.setState(prev => ({
+      ...prev,
+      error: new Error('Task name couldn\'t be empty!')
+    }));
+
+    this.props.stop(input);
+
     this.setState({ input: '', counter: 0 });
+
     clearInterval(this.interval);
   }
 
@@ -54,15 +66,17 @@ class TaskTimer extends React.Component {
   }
 
   render() {
+    console.log('render');
     const startButton = <Button variant="contained" onClick={this.handleStart}>START</Button>
 
     const stopButton = <Button variant="contained" onClick={this.handleStop}>STOP</Button>
 
     const { isStarted } = this.props;
-    const { input, counter } = this.state;
+    const { input, counter, error } = this.state;
 
     return (
       <div className="timer" >
+        <Alert isOpen={!!error} message={error && error.message} onClick={this.handleError} />
         <TextField
           id="standard-basic"
           label="Your Task"
