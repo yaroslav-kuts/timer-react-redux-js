@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -65,7 +66,11 @@ class TasksLog extends Component {
                   <TableCell align="center">{msecs2time(task.endTime)}</TableCell>
                   <TableCell align="center">{formatTime(Math.floor((task.endTime - task.startTime) / 1000))}</TableCell>
                   <TableCell align="center">
-                    <Button variant="contained" onClick={this.handleStart}>INFO</Button>
+                    <Button variant="contained">
+                        <Link to={`/tasks/${task.id}`}>
+                            INFO
+                        </Link>
+                    </Button>
                   </TableCell>
                   <TableCell align="center">
                     <Button variant="contained" onClick={this.handleDeletion}>DELETE</Button>
