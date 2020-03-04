@@ -57,7 +57,7 @@ const Task = ({ match, tasks }) => {
       </CardContent>
       <CardActions>
         <Button size="small">
-          <Link to="/timer">
+          <Link to="/main/log">
             BACK
           </Link>
         </Button>

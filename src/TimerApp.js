@@ -1,13 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Route, withRouter } from 'react-router-dom';
 
+import Paper from '@material-ui/core/Paper';
 import TaskTimer from './components/TaskTimer';
+import Panel from './components/Panel';
 import TaskLog from './components/TasksLog';
+import Task from './components/Task';
 
 const App = () => (
   <div className="App">
-    <TaskTimer />
-    <TaskLog />
+    <Route path="/main" component={TaskTimer} />
+    <Paper square>
+      <Route path="/main/log">
+        <Panel currentTab="log" />
+        <TaskLog />
+      </Route>
+      <Route path="/main/chart">
+        <Panel currentTab="chart" />
+        <TaskLog />
+      </Route>
+    </Paper>
+    <Route path="/tasks/:id" component={Task} />
   </div>
 );
 
-export default App;
+export default compose(
+  withRouter,
+  connect(null, null),
+)(App);

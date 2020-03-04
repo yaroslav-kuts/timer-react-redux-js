@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -33,18 +29,7 @@ class TasksLog extends Component {
     const { tasks } = this.props;
 
     return (
-      <Paper square>
-        <Tabs
-          value="tasksLog"
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={() => {}}
-          aria-label="disabled tabs example"
-        >
-          <Tab label="TASKS LOG" value="tasksLog" />
-          <Tab label="TASKS CHART" value="tasksChart" disabled />
-        </Tabs>
-        <TableContainer component={Paper}>
+        <TableContainer>
           <Table className="taskslog" size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -80,7 +65,6 @@ class TasksLog extends Component {
             </TableBody>
           </Table>
         </TableContainer>
-      </Paper>
     );
   }
 }
