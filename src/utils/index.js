@@ -8,3 +8,5 @@ export const formatTime = (values) => {
   const seconds = (values % 3600) % 60;
   return [hours, minutes, seconds].map(leadingZero).join(':');
 };
+
+export const msecs2time = (msecs) => new Date(msecs).toTimeString().replace(/GMT.*$/, '');

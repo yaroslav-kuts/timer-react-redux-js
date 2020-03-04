@@ -12,11 +12,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+
+import { deleteTask } from './../redux/actionCreators';
+
+import { formatTime, msecs2time } from '../utils';
 
 class TasksLog extends Component {
   constructor() {
     super();
   }
+
+  handleDeletion = (event) => {
+    const id = event.target.closest('tr').getAttribute('taskid');
+    this.props.deleteTask(id);
+  };
 
   render() {
     const { tasks } = this.props;
@@ -24,38 +34,42 @@ class TasksLog extends Component {
     return (
       <Paper square>
         <Tabs
-          value="blabla"
+          value="tasksLog"
           indicatorColor="primary"
           textColor="primary"
           onChange={() => {}}
           aria-label="disabled tabs example"
         >
-          <Tab label="TASKS LOG" />
-          <Tab label="TASKS CHART" disabled />
+          <Tab label="TASKS LOG" value="tasksLog" />
+          <Tab label="TASKS CHART" value="tasksChart" disabled />
         </Tabs>
         <TableContainer component={Paper}>
           <Table className="taskslog" size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell align="right">Task</TableCell>
-                <TableCell align="right">Time Start</TableCell>
-                <TableCell align="right">Time End</TableCell>
-                <TableCell align="right">Time Spend</TableCell>
-                <TableCell align="right">Info</TableCell>
-                <TableCell align="right">Delete</TableCell>
+                <TableCell align="center">#</TableCell>
+                <TableCell align="center">Task</TableCell>
+                <TableCell align="center">Time Start</TableCell>
+                <TableCell align="center">Time End</TableCell>
+                <TableCell align="center">Time Spend</TableCell>
+                <TableCell align="center">Info</TableCell>
+                <TableCell align="center">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {tasks.map((task, index) => (
-                <TableRow key={task.id}>
-                  <TableCell align="right">{index}</TableCell>
-                  <TableCell align="right">{task.title}</TableCell>
-                  <TableCell align="right">{task.startTime}</TableCell>
-                  <TableCell align="right">{task.endTime}</TableCell>
-                  <TableCell align="right">{task.endTime - task.startTime}</TableCell>
-                  <TableCell align="right">info</TableCell>
-                  <TableCell align="right">delete</TableCell>
+                <TableRow key={task.id} taskid={task.id}>
+                  <TableCell align="center">{index + 1}</TableCell>
+                  <TableCell align="center">{task.title}</TableCell>
+                  <TableCell align="center">{msecs2time(task.startTime)}</TableCell>
+                  <TableCell align="center">{msecs2time(task.endTime)}</TableCell>
+                  <TableCell align="center">{formatTime(Math.floor((task.endTime - task.startTime) / 1000))}</TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained" onClick={this.handleStart}>INFO</Button>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained" onClick={this.handleDeletion}>DELETE</Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -68,4 +82,4 @@ class TasksLog extends Component {
 
 const mapStateToProps = ({ timer: { tasks } }) => ({ tasks });
 
-export default connect(mapStateToProps)(TasksLog);
+export default connect(mapStateToProps, { deleteTask })(TasksLog);

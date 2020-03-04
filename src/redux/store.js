@@ -39,6 +39,13 @@ const timer = (state = initialState.timer, action) => {
       };
     }
 
+    case 'DELETE': {
+      return {
+        ...state,
+        tasks: state.tasks.filter(({ id }) => id !== action.id),
+      };
+    }
+
     default:
       return state;
   }
