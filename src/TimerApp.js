@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { Route, withRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import TaskTimer from './components/TaskTimer';
@@ -26,7 +24,4 @@ const App = () => (
   </div>
 );
 
-export default compose(
-  withRouter,
-  connect(null, null),
-)(App);
+export default App;
