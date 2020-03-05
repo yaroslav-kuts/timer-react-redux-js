@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import TaskTimer from './components/TaskTimer';
 import Panel from './components/Panel';
 import TaskLog from './components/TasksLog';
+import TasksChart from './components/TasksChart';
 import Task from './components/Task';
 
 const App = () => (
@@ -17,7 +18,7 @@ const App = () => (
       </Route>
       <Route path="/main/chart">
         <Panel currentTab="chart" />
-        <TaskLog />
+        <TasksChart />
       </Route>
     </Paper>
     <Route path="/tasks/:id" component={Task} />
