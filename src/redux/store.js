@@ -3,6 +3,8 @@ import { v4 } from 'uuid';
 
 import { loadState, saveState } from './localStorage';
 
+import { generateTasks } from '../utils';
+
 const defaultState = {
   timer: {
     isStarted: false,
@@ -43,6 +45,13 @@ const timer = (state = initialState.timer, action) => {
       return {
         ...state,
         tasks: state.tasks.filter(({ id }) => id !== action.id),
+      };
+    }
+
+    case 'GENERATE': {
+      return {
+        ...state,
+        tasks: generateTasks(),
       };
     }
 

@@ -1,5 +1,9 @@
 /* eslint-disable no-restricted-syntax */
+import { v4 } from 'uuid';
+
 const leadingZero = (n) => (`${n}`.length === 1 ? `0${n}` : `${n}`);
+
+const startOfCurrentDay = () => new Date().setHours(0, 0, 0, 0).valueOf();
 
 export const getDiffInSeconds = (time) => Math.floor((Date.now() - time) / 1000);
 
@@ -13,7 +17,7 @@ export const formatTime = (values) => {
 export const msecs2time = (msecs) => new Date(msecs).toTimeString().replace(/GMT.*$/, '');
 
 export const aggregateIntervals = (tasks) => {
-  const startOfDay = new Date().setHours(0, 0, 0, 0).valueOf() - 86400000;
+  const startOfDay = new Date().setHours(0, 0, 0, 0).valueOf();
 
   const taskIntervals = tasks.reduce((arr, { startTime, endTime }) => [
     ...arr,
@@ -49,4 +53,35 @@ export const aggregateIntervals = (tasks) => {
     name: `${i + 1}`,
     Minutes: durations[i],
   }));
+};
+
+const generateDuration = () => {
+  const minutes = Math.floor(Math.random() * (91 - 10) + 10);
+  return minutes * 60 * 1000;
+};
+
+const generatePause = () => Math.floor(Math.random() * (16 - 1) + 1) * 60 * 1000;
+
+export const generateTasks = () => {
+  const tasksNumber = Math.floor(Math.random() * (16 - 10) + 10);
+
+  let startTime = Math.floor(Math.random() * (540 - 360) + 360) * 60 * 1000 + startOfCurrentDay();
+
+  const tasks = [];
+
+  for (let i = 0; i < tasksNumber; i += 1) {
+    startTime += generatePause();
+    const endTime = startTime + generateDuration();
+
+    tasks.push({
+      id: v4(),
+      title: `task#${i + 1}`,
+      startTime,
+      endTime,
+    });
+
+    startTime = endTime;
+  }
+
+  return tasks;
 };
