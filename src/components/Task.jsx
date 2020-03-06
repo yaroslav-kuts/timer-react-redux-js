@@ -1,18 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
+import {
+  makeStyles,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from '@material-ui/core';
+
+import NotFound from './NotFound';
 
 import { formatTime, msecs2time } from '../utils';
 
@@ -30,7 +35,7 @@ const Task = ({ match, tasks }) => {
 
   const classes = useStyles();
 
-  return (
+  return task ? (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2" color="textSecondary" gutterBottom>
@@ -63,7 +68,22 @@ const Task = ({ match, tasks }) => {
         </Button>
       </CardActions>
     </Card>
-  );
+  ) : (<NotFound />);
+};
+
+Task.defaultProps = {
+  match: {},
+  tasks: [],
+};
+
+Task.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({ id: PropTypes.string }),
+  }),
+  tasks: PropTypes.arrayOf((tasks, key, component, location, propName) => {
+    const { id } = tasks[key];
+    if (!id) return new Error(`${component} has received invalid prop: ${propName}`);
+  }),
 };
 
 const mapStateToProps = ({ timer: { tasks } }) => ({ tasks });

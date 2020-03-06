@@ -25,3 +25,15 @@ label {
 .MuiPaper-root {
   margin-top: 45px;
 }
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.not-found > .to-main-link {
+  margin-top: 25px;
+}
