@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import Dialog from '@material-ui/core/Dialog';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import {
+  Dialog,
+  Button,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from '@material-ui/core/DialogContentText';
 
 const Alert = (props) => {
   const { isOpen, message, onClick } = props;
@@ -20,11 +23,24 @@ const Alert = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClick} color="primary" autoFocus>
-        OK
+          OK
         </Button>
       </DialogActions>
     </Dialog>
   );
+};
+
+
+Alert.defaultProps = {
+  isOpen: false,
+  message: '',
+  onClick: () => {},
+};
+
+Alert.propTypes = {
+  isOpen: PropTypes.bool,
+  message: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Alert;
