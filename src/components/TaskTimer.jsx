@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import TextField from '@material-ui/core/TextField';
@@ -20,14 +21,17 @@ class TaskTimer extends React.Component {
 
     this.state = { input: '', counter, error: null };
 
-    this.interval = null;
+    this.textInput = React.createRef();
   }
 
-  handleInput = event => {
-    this.setState({ input: event.target.value });
-  }
 
-  handleError = () => this.setState(prev => ({ ...prev, error: null }));
+  handleInput = event => this.setState({ input: event.target.value });
+
+  handleError = () => {
+    this.setState(prev => ({ ...prev, error: null }));
+    /* TODO: figure out how to do this without 'setTimeout' */
+    setTimeout(() => this.textInput.current.focus(), 0);
+  };
 
   handleStart = () => {
     this.props.start();
@@ -60,10 +64,7 @@ class TaskTimer extends React.Component {
     }
   }
 
-  // TODO: replace it
-  componentWillUnmount = () => {
-    clearInterval(this.interval);
-  }
+  componentWillUnmount = () => clearInterval(this.interval);
 
   render() {
     const startButton = <Button variant="contained" onClick={this.handleStart}>START</Button>
@@ -80,14 +81,25 @@ class TaskTimer extends React.Component {
           label="Your Task"
           onChange={this.handleInput}
           value={input}
+          inputRef={this.textInput}
         />
-        <div className="clock" >{formatTime(counter)}</div>
+        <div className="clock">{formatTime(counter)}</div>
 
         { isStarted ? stopButton : startButton}
       </div>
     );
   }
 }
+
+TaskTimer.defaultProps = {
+  isStarted: false,
+  startTime: 0,
+};
+
+TaskTimer.propTypes = {
+  isStarted: PropTypes.bool,
+  startTime: PropTypes.number,
+};
 
 const mapStateToProps = ({ timer: { isStarted, startTime } }) => ({ isStarted, startTime });
 
