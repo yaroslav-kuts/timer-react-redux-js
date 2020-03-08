@@ -25,5 +25,6 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'import/no-named-as-default': 0,
     'import/no-named-as-default-member': 0,
+    'consistent-return': 0,
   },
 };

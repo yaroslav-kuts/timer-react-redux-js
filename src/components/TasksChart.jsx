@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
@@ -11,7 +12,7 @@ import { generateTasks } from '../redux/actionCreators';
 
 import { aggregateIntervals } from '../utils';
 
-const Chart = ({ tasks, generateTasks }) => (
+const Chart = ({ tasks, generateTasks: generate }) => (
   <div>
     <BarChart
       width={850}
@@ -29,10 +30,24 @@ const Chart = ({ tasks, generateTasks }) => (
       <Bar dataKey="Minutes" fill="#8884d8" />
     </BarChart>
     <div className="generate">
-      <Button variant="contained" onClick={() => generateTasks()}>GENERATE</Button>
+      <Button variant="contained" onClick={() => generate()}>GENERATE</Button>
     </div>
   </div>
 );
+
+Chart.defaultProps = {
+  tasks: [],
+  generateTasks: () => {},
+};
+
+Chart.propTypes = {
+  tasks: PropTypes.arrayOf((tasks, key, component, location, propName) => {
+    if (!tasks[key]) {
+      return new Error(`${component} has received invalid prop: ${propName}`);
+    }
+  }),
+  generateTasks: PropTypes.func,
+};
 
 const mapStateToProps = ({ timer: { tasks } }) => ({ tasks });
 
