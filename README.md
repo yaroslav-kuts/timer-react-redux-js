@@ -1,1 +1,1 @@
-[Run It](https://zzzonked.github.io/main/log)
+[Run It]( https://zzzonked.github.io/timer-react-js/)
