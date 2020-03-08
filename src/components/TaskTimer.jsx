@@ -23,7 +23,6 @@ class TaskTimer extends React.Component {
     this.textInput = React.createRef();
   }
 
-
   handleInput = event => this.setState({ input: event.target.value });
 
   handleError = () => {
