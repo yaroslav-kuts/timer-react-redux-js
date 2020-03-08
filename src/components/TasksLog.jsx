@@ -1,30 +1,26 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-/* TODO: collapse it */
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 
 import { deleteTask } from './../redux/actionCreators';
 
 import { formatTime, msecs2time } from '../utils';
 
 class TasksLog extends Component {
-  constructor() {
-    super();
-  }
 
-  handleDeletion = (event) => {
-    const id = event.target.closest('tr').getAttribute('taskid');
-    this.props.deleteTask(id);
-  };
+  handleDeletion = (id) => this.props.deleteTask(id);
 
   render() {
     const { tasks } = this.props;
@@ -45,7 +41,7 @@ class TasksLog extends Component {
             </TableHead>
             <TableBody>
               {tasks.map((task, index) => (
-                <TableRow key={task.id} taskid={task.id}>
+                <TableRow key={task.id}>
                   <TableCell align="center">{index + 1}</TableCell>
                   <TableCell align="center">{task.title}</TableCell>
                   <TableCell align="center">{msecs2time(task.startTime)}</TableCell>
@@ -59,7 +55,7 @@ class TasksLog extends Component {
                     </Button>
                   </TableCell>
                   <TableCell align="center">
-                    <Button variant="contained" onClick={this.handleDeletion}>DELETE</Button>
+                    <Button variant="contained" onClick={() => this.handleDeletion(task.id)}>DELETE</Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -69,6 +65,20 @@ class TasksLog extends Component {
     );
   }
 }
+
+TasksLog.defaultProps = {
+  tasks: [],
+  deleteTask: () => {},
+};
+
+TasksLog.propTypes = {
+  tasks: PropTypes.arrayOf((tasks, key, component, location, propName) => {
+    if (!tasks[key]) {
+      return new Error(`${component} has received invalid prop: ${propName}`);
+    }
+  }),
+  deleteTask: PropTypes.func,
+};
 
 const mapStateToProps = ({ timer: { tasks } }) => ({ tasks });
 
