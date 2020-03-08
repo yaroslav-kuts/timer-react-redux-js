@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { Tabs, Tab } from '@material-ui/core';
 
 const Panel = ({ currentTab, history }) => (
   <Tabs
@@ -16,5 +16,15 @@ const Panel = ({ currentTab, history }) => (
     <Tab label="TASKS CHART" value="chart" onClick={() => history.push('/main/chart')} />
   </Tabs>
 );
+
+Panel.defaultProps = {
+  currentTab: 'log',
+  history: {},
+};
+
+Panel.propTypes = {
+  currentTab: PropTypes.oneOf(['log', 'chart']),
+  history: PropTypes.shape({ push: PropTypes.func }),
+};
 
 export default withRouter(Panel);

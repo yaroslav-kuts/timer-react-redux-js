@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
-import { TextField, Button } from '@material-ui/core/TextField';
+import { TextField, Button } from '@material-ui/core';
 
 import Alert from './Alert';
 

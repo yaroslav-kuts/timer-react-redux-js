@@ -8,7 +8,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-} from '@material-ui/core/DialogContentText';
+} from '@material-ui/core';
 
 const Alert = (props) => {
   const { isOpen, message, onClick } = props;
