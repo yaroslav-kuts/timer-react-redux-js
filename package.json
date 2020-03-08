@@ -2,6 +2,7 @@
   "name": "react-timer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://zzzonked.github.io/timer-react-js/",
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@testing-library/jest-dom": "^4.2.4",
