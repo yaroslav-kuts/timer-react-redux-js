@@ -25,7 +25,7 @@ const App = () => (
         </Route>
         <Route path="/tasks/:id" component={Task} />
         <Route path="/default" component={NotFound} />
-        <Redirect to="/default" />
+        <Redirect to="/main/log" />
       </Switch>
     </Paper>
   </div>
