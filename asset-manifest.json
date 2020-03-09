@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/timer-react-js/static/css/main.6e20e5fa.chunk.css",
-    "main.js": "/timer-react-js/static/js/main.20935c49.chunk.js",
-    "main.js.map": "/timer-react-js/static/js/main.20935c49.chunk.js.map",
-    "runtime-main.js": "/timer-react-js/static/js/runtime-main.73ee463d.js",
-    "runtime-main.js.map": "/timer-react-js/static/js/runtime-main.73ee463d.js.map",
-    "static/js/2.ed64cbcf.chunk.js": "/timer-react-js/static/js/2.ed64cbcf.chunk.js",
-    "static/js/2.ed64cbcf.chunk.js.map": "/timer-react-js/static/js/2.ed64cbcf.chunk.js.map",
-    "index.html": "/timer-react-js/index.html",
-    "precache-manifest.ce4492fee682d8d348b0aedd6cadf524.js": "/timer-react-js/precache-manifest.ce4492fee682d8d348b0aedd6cadf524.js",
-    "service-worker.js": "/timer-react-js/service-worker.js",
-    "static/css/main.6e20e5fa.chunk.css.map": "/timer-react-js/static/css/main.6e20e5fa.chunk.css.map",
-    "static/js/2.ed64cbcf.chunk.js.LICENSE.txt": "/timer-react-js/static/js/2.ed64cbcf.chunk.js.LICENSE.txt"
+    "main.css": "/timer-react-redux-js/static/css/main.6e20e5fa.chunk.css",
+    "main.js": "/timer-react-redux-js/static/js/main.20935c49.chunk.js",
+    "main.js.map": "/timer-react-redux-js/static/js/main.20935c49.chunk.js.map",
+    "runtime-main.js": "/timer-react-redux-js/static/js/runtime-main.ef411019.js",
+    "runtime-main.js.map": "/timer-react-redux-js/static/js/runtime-main.ef411019.js.map",
+    "static/js/2.ed64cbcf.chunk.js": "/timer-react-redux-js/static/js/2.ed64cbcf.chunk.js",
+    "static/js/2.ed64cbcf.chunk.js.map": "/timer-react-redux-js/static/js/2.ed64cbcf.chunk.js.map",
+    "index.html": "/timer-react-redux-js/index.html",
+    "precache-manifest.7b3c78992df471934d584c14ec05fde2.js": "/timer-react-redux-js/precache-manifest.7b3c78992df471934d584c14ec05fde2.js",
+    "service-worker.js": "/timer-react-redux-js/service-worker.js",
+    "static/css/main.6e20e5fa.chunk.css.map": "/timer-react-redux-js/static/css/main.6e20e5fa.chunk.css.map",
+    "static/js/2.ed64cbcf.chunk.js.LICENSE.txt": "/timer-react-redux-js/static/js/2.ed64cbcf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.73ee463d.js",
+    "static/js/runtime-main.ef411019.js",
     "static/js/2.ed64cbcf.chunk.js",
     "static/css/main.6e20e5fa.chunk.css",
     "static/js/main.20935c49.chunk.js"
